@@ -458,7 +458,7 @@ namespace Calculator {
 			this->label_bin_out->Text = bin_num;                                               //BIN
 
 			//converter_bodh(size_res, "BIN", "DEC");//result
-			//this->label_dec_out->Text = System::Convert::ToString(result);
+			//this->label_dec_out->Text = System::Convert::ToString(result); 
 
 			converter_bodh(this->user_in->Text,size_res, "BIN", "OCT");//rev_str
 			
