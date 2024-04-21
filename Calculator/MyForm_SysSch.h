@@ -64,9 +64,9 @@ namespace Calculator {
 
 	private: int convert_in_out = 0;
 			 int convert_out_in = 0;
-			 String^ res, ^ res1, ^ res2;
+			 String^ res, ^ res1, ^ res2, ^ res3;
 			 String^ rev_str;
-			 int res_oct, ans_oct, total, result;// в первой переменной число при делении, а во второй переменной остаток, в третьей число при умножении
+			 int res_oct, ans_oct, total, result,total_res_binhex;// в первой переменной число при делении, а во второй переменной остаток, в третьей число при умножении
 			 long int size_res;
 
 
@@ -260,6 +260,7 @@ namespace Calculator {
 
 		long int start = num;   //{ System::Convert::ToInt32(this->user_in->Text)};//System::Convert::ToString(num);
 		long int start1 = num;
+		int hex_arr[100];
 		int arr = num;
 		int pow_l = 0;
 		int str[100]; // массив
@@ -282,6 +283,7 @@ namespace Calculator {
 			str[i] = count;
 			arr %= pow_l;
 			arr_str = System::Convert::ToString(arr);
+
 			length_dup--;
 		}
 
@@ -345,7 +347,9 @@ namespace Calculator {
 				}
 			}
 		}
-		else if (name_before == "BIN") { //-----------------
+		else if (name_before == "BIN") {//-----------------
+			String^ bin_num_inbin = nullptr;
+			bin_num_inbin = this->user_in->Text;
 			//if (name_after == "DEC") {
 			//	for (unsigned int i = 0; start != 0; i++) {
 			//		String^ str1 = "hello";
@@ -374,17 +378,24 @@ namespace Calculator {
 
 			}
 			else if (name_after == "HEX") {
-				for (int i = 0; start != 0; i++) {
-					total = System::Convert::ToInt64(str[i]) * pow(2, length - i);
-					result += total;
-					start = start / (10 * length - i);
-				}
-				for (int i = 0; result != 0; i++) {
-					ans_oct = result % 16;
-					result /= 16;
-					res1 += System::Convert::ToString(ans_oct);
-				}
-
+				total_res_binhex = System::Convert::ToInt32(bin_num_inbin, 2); // преобразование бина в хекс
+				res3 = System::Convert::ToString(total_res_binhex,16);
+				/*for (int i = 0; i < num_str->Length; i++) { 
+					if (num_str[i] == 'A')
+						hex_arr[i] == 10;
+					else if (num_str[i] == 'B') 
+						hex_arr[i] == 11;
+					else if (num_str[i] == 'C')
+						hex_arr[i] = 12;
+					else if (num_str[i] == 'D')
+						hex_arr[i] = 13;
+					else if (num_str[i] == 'E')
+						hex_arr[i] = 14;
+					else if (num_str[i] == 'F')
+						hex_arr[i] = 15;
+					else
+						hex_arr[i] = 
+				}*/
 			}
 		}
 		else if (name_before == "HEX") {
@@ -437,12 +448,12 @@ namespace Calculator {
 		   
 	private: System::Void converter_size(System::Object^ sender, System::EventArgs^ e) {
 		String^ bin_num = this->user_in->Text;
+		size_res = System::Convert::ToInt64(this->user_in->Text); 
 		int total = 0;
 		int total1 = 0;
 		String^ decimal = System::Convert::ToString(size_res, 2);
 		if (this->choice_in->Text == "BIN") {
 
-			size_res = System::Convert::ToInt64(this->user_in->Text);
 
 			this->label_bin_out->Text = bin_num;                                               //BIN
 
@@ -452,13 +463,15 @@ namespace Calculator {
 			converter_bodh(this->user_in->Text,size_res, "BIN", "OCT");//rev_str
 			
 			this->label_oct_out->Text = reverse_str(res1);//rev_str; 
+			res1 = "";
 			
-			converter_bodh(this->user_in->Text,size_res, "BIN", "HEX");//res1
-			this->label_hex_out->Text = res1;
+			converter_bodh(this->user_in->Text,size_res, "BIN", "HEX");//res3
+			this->label_hex_out->Text = res3;
+			res3 = "";
 
 			total = System::Convert::ToInt32(bin_num, 2);
 			String^ total_str = System::Convert::ToString(total);
-			this->label_dec_out->Text = System::Convert::ToString(total);
+			this->label_dec_out->Text = total_str;
 
 			/*total1 = System::Convert::ToInt32(total_str, 16);
 			this->label_hex_out->Text = System::Convert::ToString(total1);
