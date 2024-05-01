@@ -68,6 +68,12 @@ namespace Calculator {
 			 String^ rev_str;
 			 int res_oct, ans_oct, total, result,total_res_binhex;// в первой переменной число при делении, а во второй переменной остаток, в третьей число при умножении
 			 long int size_res;
+			 
+			 int pow_a;
+			 int pow_a_two;
+			 int number;
+			 int pow_eight;
+			 int length_zero = 0;
 
 
 	private: System::Windows::Forms::Label^ choice_in;
@@ -312,42 +318,46 @@ namespace Calculator {
 				}
 			}
 		}
-		else if (name_before == "OCT") {
+		else if (name_before == "OCT") { //---------------
 			if (name_after == "BIN") {
-				for (int i = 0; start != 0; i++) {
-					total = System::Convert::ToInt64(str[i]) * pow(8, length - i);
+				int a = num;
+				for (int i = 0; length_zero < length; i++) {
+					pow_a = pow(10, 1 + i);
+					pow_a_two = pow(10, i);
+					number = start % pow_a / pow_a_two;
+					pow_eight = pow(8, length_zero);
+					total = number * pow_eight;  
 					result += total;
-					start = start / (10 * length - i);
+					length_zero++;
 				}
-				for (int i = 0; result != 0; i++) {
-					result /= 2;
-					if (result % 2 == 0)
-						res = "0";
-					else if (result % 2 != 0)
-						res = "1";
-				}
+				res = System::Convert::ToString(result,2);
 			}
 			else if (name_after == "DEC") {
-				for (int i = 0; start != 0; i++) {
-					total = System::Convert::ToInt64(str[i]) * pow(8, length - i);
+				int a = num;
+				for (int i = 0; length_zero < length; i++) {
+					pow_a = pow(10, 1 + i);
+					pow_a_two = pow(10, i);
+					number = start % pow_a / pow_a_two;
+					pow_eight = pow(8, length_zero);
+					total = number * pow_eight; 
 					result += total;
-					start = start / (10 * length - i);
+					length_zero++;
 				}
 			}
 			else if (name_after == "HEX") {
-				for (int i = 0; start != 0; i++) {
-					total = System::Convert::ToInt64(str[i]) * pow(8, length - i);
+				for (int i = 0; length_zero < length; i++) {
+					pow_a = pow(10, 1 + i);
+					pow_a_two = pow(10, i);
+					number = start % pow_a / pow_a_two;
+					pow_eight = pow(8, length_zero);
+					total = number * pow_eight; // доработать 
 					result += total;
-					start = start / (10 * length - i);
+					length_zero++;
 				}
-				for (int i = 0; result != 0; i++) {
-					ans_oct = result % 16;
-					result /= 16;
-					res1 += System::Convert::ToString(ans_oct);
-				}
+				res1 = System::Convert::ToString(result,16);
 			}
 		}
-		else if (name_before == "BIN") {//-----------------
+		else if (name_before == "BIN") {
 			String^ bin_num_inbin = nullptr;
 			bin_num_inbin = this->user_in->Text;
 			//if (name_after == "DEC") {
@@ -480,8 +490,9 @@ namespace Calculator {
 		}
 		else if (this->choice_in->Text == "OCT") {
 			this->label_oct_out->Text = System::Convert::ToString(size_res);
-			converter_bodh(this->user_in->Text, size_res, "OCT", "DEC");//result
+			converter_bodh(this->user_in->Text, size_res, "OCT", "DEC");//result;
 			this->label_dec_out->Text = System::Convert::ToString(result);
+			//result = 0;
 			converter_bodh(this->user_in->Text, size_res, "OCT", "BIN");//res
 			this->label_bin_out->Text = res;
 			converter_bodh(this->user_in->Text, size_res, "OCT", "HEX");//res1
