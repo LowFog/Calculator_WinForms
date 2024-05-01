@@ -262,7 +262,7 @@ namespace Calculator {
 			convert_in_out = 0;
 		}
 	}
-	private: System::Void converter_bodh(String^ num_str,long int num, String^ name_before, String^ name_after) {
+	private: System::Void converter_bod(String^ num_str,long int num, String^ name_before, String^ name_after) {
 
 		long int start = num;   //{ System::Convert::ToInt32(this->user_in->Text)};//System::Convert::ToString(num);
 		long int start1 = num;
@@ -274,7 +274,7 @@ namespace Calculator {
 		String^  str_NotArr = this->user_in->Text;
 		String^ arr_str = System::Convert::ToString(arr);
 		
-		const int length = str_NotArr->Length;
+		const int length = this->user_in->Text->Length;//str_NotArr->Length;
 		int length_dup = length;
 
 		for (int i = 0; i < length; i++) { // число запихиваем в массив
@@ -411,14 +411,24 @@ namespace Calculator {
 		else if (name_before == "HEX") {
 			int str_to_int;
 			if (name_after == "DEC") {
-				/*for (int i = 0; start != 0; i++) {
-					total = System::Convert::ToInt64(str[i]) * pow(16, length - i);
-					result += total;
-					start = start / (10 * length - i);
-				}*/
-				for (int i = 0; i < num_str->Length; i++) {
-					char str_i = num_str[i];//(char)51;
-					str_to_int = 5555;//(int)str_i;    //std::stoi(num_str[i]);
+				int a;
+				for (int i = 0; i < length; i++) {
+					if (num_str[i] == 'a')
+						result += 10 * pow(16, length - 1 - i);
+					else if (num_str[i] == 'b')
+						result += 11 * pow(16, length - 1 - i);
+					else if (num_str[i] == 'c')
+						result += 12 * pow(16, length - 1 - i);
+					else if (num_str[i] == 'd')
+						result += 13 * pow(16, length - 1 - i);
+					else if (num_str[i] == 'e')
+						result += 14 * pow(16, length - 1 - i);
+					else if (num_str[i] == 'f')
+						result += 15 * pow(16, length - 1 - i);
+					else {
+						a = (int) num_str[i];
+						result += a * pow(16, length - 1 - i);
+					}
 				}
 			}
 			else if (name_after == "BIN") {
@@ -450,6 +460,89 @@ namespace Calculator {
 			}
 		}
 	}
+
+	private: Void converter_h(String^ num_str,String^ name_after) {
+		int hex_arr[100];
+		int pow_l = 0;
+		int str[100]; // массив
+
+		String^ str_NotArr = this->user_in->Text;
+		//String^ arr_str = System::Convert::ToString(arr);
+
+		const int length = this->user_in->Text->Length;//str_NotArr->Length;
+		int length_dup = length;
+
+		//else if (name_before == "HEX") {
+		int str_to_int;
+		int a;
+		int res_h;
+		if (name_after == "DEC") {
+			for (int i = 0; i < length; i++) {
+				if (num_str[i] == 'a')
+					res_h += 10 * pow(16, length - 1 - i);
+				else if (num_str[i] == 'b')
+					res_h += 11 * pow(16, length - 1 - i);
+				else if (num_str[i] == 'c')
+					res_h += 12 * pow(16, length - 1 - i);
+				else if (num_str[i] == 'd')
+					res_h += 13 * pow(16, length - 1 - i);
+				else if (num_str[i] == 'e')
+					res_h += 14 * pow(16, length - 1 - i);
+				else if (num_str[i] == 'f')
+					res_h += 15 * pow(16, length - 1 - i);
+				else {
+					a = (int)num_str[i];
+					res_h += a * pow(16, length - 1 - i);
+				}
+			}
+			result = res_h;
+		}
+		else if (name_after == "BIN") {
+			for (int i = 0; i < length; i++) {
+				if (num_str[i] == 'a')
+					res_h += 10 * pow(16, length - 1 - i);
+				else if (num_str[i] == 'b')
+					res_h += 11 * pow(16, length - 1 - i);
+				else if (num_str[i] == 'c')
+					res_h += 12 * pow(16, length - 1 - i);
+				else if (num_str[i] == 'd')
+					res_h += 13 * pow(16, length - 1 - i);
+				else if (num_str[i] == 'e')
+					res_h += 14 * pow(16, length - 1 - i);
+				else if (num_str[i] == 'f')
+					res_h += 15 * pow(16, length - 1 - i);
+				else {
+					a = (int)num_str[i];
+					res_h += a * pow(16, length - 1 - i);
+				}
+			}
+			res = System::Convert::ToString(res_h,2);
+
+		}
+		else if (name_after == "OCT") {
+			for (int i = 0; i < length; i++) {
+				if (num_str[i] == 'a')
+					res_h += 10 * pow(16, length - 1 - i);
+				else if (num_str[i] == 'b')
+					res_h += 11 * pow(16, length - 1 - i);
+				else if (num_str[i] == 'c')
+					res_h += 12 * pow(16, length - 1 - i);
+				else if (num_str[i] == 'd')
+					res_h += 13 * pow(16, length - 1 - i);
+				else if (num_str[i] == 'e')
+					res_h += 14 * pow(16, length - 1 - i);
+				else if (num_str[i] == 'f')
+					res_h += 15 * pow(16, length - 1 - i);
+				else {
+					a = (int)num_str[i];
+					res_h += a * pow(16, length - 1 - i);
+				}
+			}
+			res1 = System::Convert::ToString(res_h, 8);
+			
+		}
+	}
+
 	private: String^ reverse_str(String^ str) {
 		auto charArr = str->ToCharArray();
 		charArr->Reverse(charArr);
@@ -458,24 +551,24 @@ namespace Calculator {
 		   
 	private: System::Void converter_size(System::Object^ sender, System::EventArgs^ e) {
 		String^ bin_num = this->user_in->Text;
-		size_res = System::Convert::ToInt64(this->user_in->Text); 
+		
 		int total = 0;
 		int total1 = 0;
 		String^ decimal = System::Convert::ToString(size_res, 2);
 		if (this->choice_in->Text == "BIN") {
 
-
+			size_res = System::Convert::ToInt64(this->user_in->Text);
 			this->label_bin_out->Text = bin_num;                                               //BIN
 
 			//converter_bodh(size_res, "BIN", "DEC");//result
 			//this->label_dec_out->Text = System::Convert::ToString(result); 
 
-			converter_bodh(this->user_in->Text,size_res, "BIN", "OCT");//rev_str
+			converter_bod(this->user_in->Text,size_res, "BIN", "OCT");//rev_str
 			
 			this->label_oct_out->Text = reverse_str(res1);//rev_str; 
 			res1 = "";
 			
-			converter_bodh(this->user_in->Text,size_res, "BIN", "HEX");//res3
+			converter_bod(this->user_in->Text,size_res, "BIN", "HEX");//res3
 			this->label_hex_out->Text = res3;
 			res3 = "";
 
@@ -489,16 +582,18 @@ namespace Calculator {
 			this->label_oct_out->Text = System::Convert::ToString(total);*/
 		}
 		else if (this->choice_in->Text == "OCT") {
+			size_res = System::Convert::ToInt64(this->user_in->Text);
 			this->label_oct_out->Text = System::Convert::ToString(size_res);
-			converter_bodh(this->user_in->Text, size_res, "OCT", "DEC");//result;
+			converter_bod(this->user_in->Text, size_res, "OCT", "DEC");//result;
 			this->label_dec_out->Text = System::Convert::ToString(result);
 			//result = 0;
-			converter_bodh(this->user_in->Text, size_res, "OCT", "BIN");//res
+			converter_bod(this->user_in->Text, size_res, "OCT", "BIN");//res
 			this->label_bin_out->Text = res;
-			converter_bodh(this->user_in->Text, size_res, "OCT", "HEX");//res1
+			converter_bod(this->user_in->Text, size_res, "OCT", "HEX");//res1
 			this->label_hex_out->Text = res1;
 		}
 		else if (this->choice_in->Text == "DEC") {
+			size_res = System::Convert::ToInt64(this->user_in->Text);
 			/*this->label_dec_out->Text = System::Convert::ToString(size_res);
 			converter_bodh(size_res, "DEC", "BIN");//res
 			this->label_dec_out->Text = res;
@@ -512,13 +607,13 @@ namespace Calculator {
 			this->label_oct_out->Text = System::Convert::ToString(size_res, 8);
 		}
 		else if (this->choice_in->Text == "HEX") {
-			this->label_hex_out->Text = System::Convert::ToString(size_res);
-			converter_bodh(this->user_in->Text, size_res, "HEX", "DEC");//result
+			this->label_hex_out->Text = this->user_in->Text;
+			converter_h(this->user_in->Text,"DEC");//result
 			this->label_dec_out->Text = System::Convert::ToString(result);
-			converter_bodh(this->user_in->Text, size_res, "HEX", "OCT");//res1
+			converter_h(this->user_in->Text,"OCT");//res1
 			this->label_oct_out->Text = res1;
-			converter_bodh(this->user_in->Text, size_res, "HEX", "BIN");//res
-			this->label_hex_out->Text = res;
+			converter_h(this->user_in->Text,"BIN");//res
+			this->label_bin_out->Text = res;
 		}
 	}
 };
