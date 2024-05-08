@@ -2,6 +2,7 @@
 #include "MyForm_plosch.h"
 #include "MyForm_obe.h"
 #include "MyForm_SysSch.h"
+#include "MyForm_valut.h"
 #pragma once
 
 namespace Calculator {
@@ -75,6 +76,7 @@ namespace Calculator {
 			 System::Windows::Forms::Button^ button_plosch;
 			 System::Windows::Forms::Button^ button_obe;
 			 System::Windows::Forms::Button^ button_SysSch;
+			 System::Windows::Forms::Button^ button_valut;
 
 
 
@@ -84,16 +86,18 @@ namespace Calculator {
 	private: System::Windows::Forms::Button^ button_percent;
 
 
-	private: System::Windows::Forms::Button^ button_kor;
+
 	private: System::Windows::Forms::Label^ label_res;
 	private: long float num_first;
 	private: char user_action;
+	private: bool form_isactive = false;
 	public: static bool form_size = false;
 	private: Form^ forms = gcnew Form; //
-	private: MyForm_size^ cform_size = gcnew MyForm_size;
+	public: MyForm_size^ cform_size = gcnew MyForm_size;
 			 MyForm_plosch^ form_plosch = gcnew MyForm_plosch;
 			 MyForm_obe^ form_obe = gcnew MyForm_obe;
 			 MyForm_SysSch^ form_sys_sch = gcnew MyForm_SysSch;
+			 MyForm_valut^ form_valut = gcnew MyForm_valut;
 	
 	private: System::Windows::Forms::Button^ button1;
 
@@ -145,13 +149,13 @@ namespace Calculator {
 			this->button_delen = (gcnew System::Windows::Forms::Button());
 			this->button_ac = (gcnew System::Windows::Forms::Button());
 			this->button_percent = (gcnew System::Windows::Forms::Button());
-			this->button_kor = (gcnew System::Windows::Forms::Button());
 			this->label_res = (gcnew System::Windows::Forms::Label());
 			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->button_size = (gcnew System::Windows::Forms::Button()); //
-			this->button_plosch = (gcnew System::Windows::Forms::Button());//
+			this->button_size = (gcnew System::Windows::Forms::Button());
+			this->button_plosch = (gcnew System::Windows::Forms::Button());
 			this->button_obe = (gcnew System::Windows::Forms::Button());
 			this->button_SysSch = (gcnew System::Windows::Forms::Button());
+			this->button_valut = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// button_7
@@ -418,20 +422,6 @@ namespace Calculator {
 			this->button_percent->UseVisualStyleBackColor = false;
 			this->button_percent->Click += gcnew System::EventHandler(this, &MyForm::button_delen_ost_Click);
 			// 
-			// button_kor
-			// 
-			this->button_kor->BackColor = System::Drawing::SystemColors::HotTrack;
-			this->button_kor->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button_kor->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei UI", 13.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->button_kor->ForeColor = System::Drawing::Color::White;
-			this->button_kor->Location = System::Drawing::Point(210, 252);
-			this->button_kor->Name = L"button_kor";
-			this->button_kor->Size = System::Drawing::Size(98, 66);
-			this->button_kor->TabIndex = 19;
-			this->button_kor->Text = L"√";
-			this->button_kor->UseVisualStyleBackColor = false;
-			// 
 			// label_res
 			// 
 			this->label_res->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 28.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
@@ -458,42 +448,66 @@ namespace Calculator {
 			this->button1->TabIndex = 21;
 			this->button1->UseVisualStyleBackColor = false;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
-			//
+			// 
 			// button_size
 			// 
-			this->button_size->Size = System::Drawing::Size(64, 29);
-			this->button_size->Text = "Длина";
-			this->button_size->ForeColor = System::Drawing::Color::White;
 			this->button_size->BackColor = System::Drawing::Color::Gray;
-			this->button_size->Location = System::Drawing::Point(100,70);
+			this->button_size->ForeColor = System::Drawing::Color::White;
+			this->button_size->Location = System::Drawing::Point(100, 50);
+			this->button_size->Name = L"button_size";
+			this->button_size->Size = System::Drawing::Size(64, 29);
+			this->button_size->TabIndex = 0;
+			this->button_size->Text = L"Длина";
+			this->button_size->UseVisualStyleBackColor = false;
 			this->button_size->Click += gcnew System::EventHandler(this, &MyForm::button_size_Click);
-			//
+			// 
 			// button_plosch
 			// 
-			this->button_plosch->Size = System::Drawing::Size(64, 29);
-			this->button_plosch->Text = "Площадь";
-			this->button_plosch->ForeColor = System::Drawing::Color::White;
 			this->button_plosch->BackColor = System::Drawing::Color::Gray;
-			this->button_plosch->Location = System::Drawing::Point(100,105);
+			this->button_plosch->ForeColor = System::Drawing::Color::White;
+			this->button_plosch->Location = System::Drawing::Point(100, 85);
+			this->button_plosch->Name = L"button_plosch";
+			this->button_plosch->Size = System::Drawing::Size(64, 29);
+			this->button_plosch->TabIndex = 0;
+			this->button_plosch->Text = L"Площадь";
+			this->button_plosch->UseVisualStyleBackColor = false;
 			this->button_plosch->Click += gcnew System::EventHandler(this, &MyForm::button_plosch_Click);
-			//
+			// 
 			// button_obe
 			// 
-			this->button_obe->Size = System::Drawing::Size(64, 29);
-			this->button_obe->Text = "Обьём";
-			this->button_obe->ForeColor = System::Drawing::Color::White;
 			this->button_obe->BackColor = System::Drawing::Color::Gray;
-			this->button_obe->Location = System::Drawing::Point(100, 140);
+			this->button_obe->ForeColor = System::Drawing::Color::White;
+			this->button_obe->Location = System::Drawing::Point(100, 120);
+			this->button_obe->Name = L"button_obe";
+			this->button_obe->Size = System::Drawing::Size(64, 29);
+			this->button_obe->TabIndex = 0;
+			this->button_obe->Text = L"Обьём";
+			this->button_obe->UseVisualStyleBackColor = false;
 			this->button_obe->Click += gcnew System::EventHandler(this, &MyForm::button_obe_Click);
-			//
+			// 
 			// button_SysSch
 			// 
-			this->button_SysSch->Size = System::Drawing::Size(83, 29);
-			this->button_SysSch->Text = "Программист";
-			this->button_SysSch->ForeColor = System::Drawing::Color::White;
 			this->button_SysSch->BackColor = System::Drawing::Color::Gray;
-			this->button_SysSch->Location = System::Drawing::Point(95, 175);
+			this->button_SysSch->ForeColor = System::Drawing::Color::White;
+			this->button_SysSch->Location = System::Drawing::Point(90, 155);
+			this->button_SysSch->Name = L"button_SysSch";
+			this->button_SysSch->Size = System::Drawing::Size(83, 29);
+			this->button_SysSch->TabIndex = 0;
+			this->button_SysSch->Text = L"Программист";
+			this->button_SysSch->UseVisualStyleBackColor = false;
 			this->button_SysSch->Click += gcnew System::EventHandler(this, &MyForm::button_SysSch_Click);
+			// 
+			// button_valut
+			// 
+			this->button_valut->BackColor = System::Drawing::Color::Gray;
+			this->button_valut->ForeColor = System::Drawing::Color::White;
+			this->button_valut->Location = System::Drawing::Point(100, 190);
+			this->button_valut->Name = L"button_valut";
+			this->button_valut->Size = System::Drawing::Size(64, 29);
+			this->button_valut->TabIndex = 0;
+			this->button_valut->Text = L"Валюта";
+			this->button_valut->UseVisualStyleBackColor = false;
+			this->button_valut->Click += gcnew System::EventHandler(this, &MyForm::button_valut_Click);
 			// 
 			// MyForm
 			// 
@@ -504,7 +518,6 @@ namespace Calculator {
 			this->ClientSize = System::Drawing::Size(420, 604);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label_res);
-			this->Controls->Add(this->button_kor);
 			this->Controls->Add(this->button_percent);
 			this->Controls->Add(this->button_ac);
 			this->Controls->Add(this->button_delen);
@@ -605,30 +618,44 @@ namespace Calculator {
 	}
 		   
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		/*if (form_isactive == false) {
+			forms->Show();
+			form_isactive = true;
+		}*/
 		forms->Show();
 		forms->BackColor = Color::Black;
 		forms->Controls->Add(this->button_size);
 		forms->Controls->Add(this->button_plosch);
 		forms->Controls->Add(this->button_obe);
 		forms->Controls->Add(this->button_SysSch);
-		forms->Name = "Выбор";
+		forms->Controls->Add(this->button_valut);
+		forms->Text = "Выбор";
 		forms->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 	}
 	private: System::Void button_size_Click(System::Object^ sender, System::EventArgs^ e) {
-		forms->Close();
+		forms->Hide();
 		cform_size->Show();
+		//form_isactive = false;
 	}
 	private: System::Void button_plosch_Click(System::Object^ sender, System::EventArgs^ e) {
-		forms->Close();
+		forms->Hide();
 		form_plosch->Show();
+		//form_isactive = false;
 	}
 	private: System::Void button_obe_Click(System::Object^ sender, System::EventArgs^ e) {
-		forms->Close();
+		forms->Hide();
 		form_obe->Show();
+		//form_isactive = false;
 	}
 	private: System::Void button_SysSch_Click(System::Object^ sender, System::EventArgs^ e) {
-		forms->Close();
+		forms->Hide();
 		form_sys_sch->Show();
+		//form_isactive = false;
+	}
+	private: System::Void button_valut_Click(System::Object^ sender, System::EventArgs^ e) {
+		forms->Hide();
+		form_valut->Show();
+		//form_isactive = false;
 	}
 };
 }

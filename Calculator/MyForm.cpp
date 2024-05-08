@@ -1,12 +1,11 @@
 #include "MyForm.h"
-#include "MyForm_size.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
 
 [STAThreadAttribute]
 
-int main(array <String^>^ args) {
+int main(cli::array <String^>^ args) {
 	Application::SetCompatibleTextRenderingDefault(true);
 	Application::EnableVisualStyles();
 

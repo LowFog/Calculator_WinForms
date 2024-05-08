@@ -78,6 +78,8 @@ namespace Calculator {
 
 	private: System::Windows::Forms::Label^ choice_in;
 	private: System::Windows::Forms::Button^ button_result;
+	private: System::Windows::Forms::Button^ button_close;
+
 
 
 
@@ -109,6 +111,7 @@ namespace Calculator {
 			this->label_hex_out = (gcnew System::Windows::Forms::Label());
 			this->choice_in = (gcnew System::Windows::Forms::Label());
 			this->button_result = (gcnew System::Windows::Forms::Button());
+			this->button_close = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// label_bin
@@ -149,14 +152,14 @@ namespace Calculator {
 			// 
 			// user_in
 			// 
-			this->user_in->Location = System::Drawing::Point(13, 36);
+			this->user_in->Location = System::Drawing::Point(13, 50);
 			this->user_in->Name = L"user_in";
 			this->user_in->Size = System::Drawing::Size(100, 22);
 			this->user_in->TabIndex = 8;
 			// 
 			// button_change
 			// 
-			this->button_change->Location = System::Drawing::Point(261, 34);
+			this->button_change->Location = System::Drawing::Point(261, 50);
 			this->button_change->Name = L"button_change";
 			this->button_change->Size = System::Drawing::Size(75, 23);
 			this->button_change->TabIndex = 9;
@@ -199,7 +202,7 @@ namespace Calculator {
 			// choice_in
 			// 
 			this->choice_in->AutoSize = true;
-			this->choice_in->Location = System::Drawing::Point(154, 41);
+			this->choice_in->Location = System::Drawing::Point(154, 55);
 			this->choice_in->Name = L"choice_in";
 			this->choice_in->Size = System::Drawing::Size(0, 16);
 			this->choice_in->TabIndex = 14;
@@ -214,6 +217,18 @@ namespace Calculator {
 			this->button_result->UseVisualStyleBackColor = true;
 			this->button_result->Click += gcnew System::EventHandler(this, &MyForm_SysSch::converter_size);
 			// 
+			// button_close
+			// 
+			this->button_close->BackColor = System::Drawing::Color::Red;
+			this->button_close->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button_close->Location = System::Drawing::Point(314, 12);
+			this->button_close->Name = L"button_close";
+			this->button_close->Size = System::Drawing::Size(25, 25);
+			this->button_close->TabIndex = 16;
+			this->button_close->Text = L"X";
+			this->button_close->UseVisualStyleBackColor = false;
+			this->button_close->Click += gcnew System::EventHandler(this, &MyForm_SysSch::button_close_Click);
+			// 
 			// MyForm_SysSch
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -221,6 +236,7 @@ namespace Calculator {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ClientSize = System::Drawing::Size(351, 348);
+			this->Controls->Add(this->button_close);
 			this->Controls->Add(this->button_result);
 			this->Controls->Add(this->choice_in);
 			this->Controls->Add(this->label_hex_out);
@@ -233,6 +249,7 @@ namespace Calculator {
 			this->Controls->Add(this->label_dec);
 			this->Controls->Add(this->label_oct);
 			this->Controls->Add(this->label_bin);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Name = L"MyForm_SysSch";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Программист";
@@ -615,6 +632,9 @@ namespace Calculator {
 			converter_h(this->user_in->Text,"BIN");//res
 			this->label_bin_out->Text = res;
 		}
+	}
+	private: System::Void button_close_Click(System::Object^ sender, System::EventArgs^ e) {
+		Form::Hide();
 	}
 };
 }

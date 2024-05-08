@@ -52,6 +52,8 @@ namespace Calculator {
 
 	private: System::Windows::Forms::Label^ convert_out;
 	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Button^ button_close;
+
 
 
 	protected:
@@ -77,6 +79,7 @@ namespace Calculator {
 			this->user_in = (gcnew System::Windows::Forms::TextBox());
 			this->convert_out = (gcnew System::Windows::Forms::Label());
 			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->button_close = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// choice_in
@@ -152,6 +155,18 @@ namespace Calculator {
 			this->button1->UseVisualStyleBackColor = false;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm_size::converter_size);
 			// 
+			// button_close
+			// 
+			this->button_close->BackColor = System::Drawing::Color::Red;
+			this->button_close->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button_close->Location = System::Drawing::Point(314, 12);
+			this->button_close->Name = L"button_close";
+			this->button_close->Size = System::Drawing::Size(25, 25);
+			this->button_close->TabIndex = 10;
+			this->button_close->Text = L"X";
+			this->button_close->UseVisualStyleBackColor = false;
+			this->button_close->Click += gcnew System::EventHandler(this, &MyForm_size::button_close_Click);
+			// 
 			// MyForm_size
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -159,6 +174,7 @@ namespace Calculator {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ClientSize = System::Drawing::Size(351, 392);
+			this->Controls->Add(this->button_close);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->convert_out);
 			this->Controls->Add(this->user_in);
@@ -166,6 +182,7 @@ namespace Calculator {
 			this->Controls->Add(this->change_in);
 			this->Controls->Add(this->choice_out);
 			this->Controls->Add(this->choice_in);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Name = L"MyForm_size";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"MyForm_size";
@@ -307,6 +324,9 @@ namespace Calculator {
 			else if (this->choice_out->Text == "милиметр")
 				this->convert_out->Text = this->user_in->Text;
 		}
+	}
+	private: System::Void button_close_Click(System::Object^ sender, System::EventArgs^ e) {
+		Form::Hide();
 	}
 };
 }

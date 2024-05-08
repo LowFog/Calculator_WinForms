@@ -50,6 +50,8 @@ namespace Calculator {
 	
 	private: int convert_in_out = 0;
 	private: int convert_out_in = 0;
+	private: System::Windows::Forms::Button^ button_close;
+
 
 
 
@@ -74,6 +76,7 @@ namespace Calculator {
 			this->user_in = (gcnew System::Windows::Forms::TextBox());
 			this->choice_in = (gcnew System::Windows::Forms::Label());
 			this->choice_out = (gcnew System::Windows::Forms::Label());
+			this->button_close = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// change_in
@@ -137,6 +140,18 @@ namespace Calculator {
 			this->choice_out->Size = System::Drawing::Size(0, 16);
 			this->choice_out->TabIndex = 6;
 			// 
+			// button_close
+			// 
+			this->button_close->BackColor = System::Drawing::Color::Red;
+			this->button_close->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button_close->Location = System::Drawing::Point(298, 12);
+			this->button_close->Name = L"button_close";
+			this->button_close->Size = System::Drawing::Size(25, 25);
+			this->button_close->TabIndex = 10;
+			this->button_close->Text = L"X";
+			this->button_close->UseVisualStyleBackColor = false;
+			this->button_close->Click += gcnew System::EventHandler(this, &MyForm_obe::button_close_Click);
+			// 
 			// MyForm_obe
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -144,6 +159,7 @@ namespace Calculator {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ClientSize = System::Drawing::Size(335, 350);
+			this->Controls->Add(this->button_close);
 			this->Controls->Add(this->choice_out);
 			this->Controls->Add(this->choice_in);
 			this->Controls->Add(this->user_in);
@@ -151,6 +167,7 @@ namespace Calculator {
 			this->Controls->Add(this->button_result);
 			this->Controls->Add(this->change_out);
 			this->Controls->Add(this->change_in);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Name = L"MyForm_obe";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Îáü¸ì";
@@ -292,6 +309,9 @@ namespace Calculator {
 			else if (this->choice_out->Text == "ìì^3")
 				this->convert_out->Text = this->user_in->Text;
 		}
+	}
+	private: System::Void button_close_Click(System::Object^ sender, System::EventArgs^ e) {
+		Form::Hide();
 	}
 };
 }
