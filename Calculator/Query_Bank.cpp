@@ -1,48 +1,25 @@
-#pragma managed(push,off)
-#include <boost/beast.hpp>
-#include <boost/asio/connect.hpp>
-#include <boost/asio/ip/tcp.hpp>
+#define CURL_STATICLIB
 #include <iostream>
-#include <fstream>
 #include <string>
-#pragma managed(pop)
-
-namespace http = boost::beast::http;
+#include <curl/curl.h>
 
 using namespace std;
 
-//string host = "api.nbrb.by";
-//string target = "/exrates/rates/456?ondate=2023-01-10";
+static size_t getResponsetoString(void* contents, size_t size, size_t nmemb, void* userp) {
+	((string*)userp)->append((char*)contents, size * nmemb);
+	return size * nmemb;
+}
 
-void query_bank() {
-	
-	string host = "api.nbrb.by";
-	string target = "/exrates/rates/456?ondate=2023-01-10";
-	
-	boost::asio::io_context ioc;
+string query_bank() {
+	CURL* curl;
+	CURLcode response;
+	string str_response;
+	curl = curl_easy_init();
+	curl_easy_setopt(curl, CURLOPT_URL, "https://api.nbrb.by/exrates/rates?periodicity=0");
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, getResponsetoString);
+	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &str_response);
+	response = curl_easy_perform(curl);
+	curl_easy_cleanup(curl);
 
-	boost::asio::ip::tcp::resolver resolver(ioc);
-	boost::asio::ip::tcp::socket socket(ioc);
-
-	boost::asio::connect(socket, resolver.resolve(host, "80"));
-
-	http::request<http::string_body> req(http::verb::get, target, 11);
-
-	req.set(http::field::host, host);
-	req.set(http::field::user_agent, BOOST_BEAST_VERSION_STRING);
-
-	http::write(socket, req);
-
-	{
-		boost::beast::flat_buffer buffer;
-		http::response<http::dynamic_body> res;
-		http::read(socket, buffer, res);
-
-		ofstream out("result_cur.txt");
-
-		if (out.is_open()) {
-			out << res;
-			out.close();
-		}
-	}
+	return str_response;
 }

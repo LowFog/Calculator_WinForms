@@ -3,8 +3,6 @@
 //#include <boost/asio/ip/tcp.hpp>
 //#include <fstream>
 #include <iostream>
-//#include <string>
-#include "Query_Bank.cpp"
 #pragma once
 
 //namespace http = boost::beast::http;
@@ -232,7 +230,8 @@ namespace Calculator {
 	
 	private: Void converter_cur(System::Object^ sender, System::EventArgs^ e) {
 
-		query_bank();
+		
+		
 
 	}
 };
